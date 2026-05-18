@@ -115,8 +115,9 @@
 
 @layer utilities {
   .glass {
-    background: oklch(0.13 0 0);
-    border: 1px solid oklch(1 0 0 / 0.05);
+    background: oklch(0.165 0 0);
+    border: 1px solid oklch(1 0 0 / 0.09);
+    box-shadow: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 12px 32px -16px oklch(0 0 0 / 0.6);
   }
 
   .glow-blue {
