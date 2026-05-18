@@ -7,8 +7,39 @@ const statements = [
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('admin','staff','client') NOT NULL DEFAULT 'staff',
+    two_factor_enabled TINYINT(1) NOT NULL DEFAULT 1,
+    last_login_at DATETIME NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_users_email (email)
+  ) ENGINE=InnoDB;`,
+
+  `CREATE TABLE IF NOT EXISTS otp_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    email VARCHAR(255) NOT NULL,
+    purpose ENUM('login','signup','reset') NOT NULL DEFAULT 'login',
+    code_hash VARCHAR(255) NOT NULL,
+    attempts INT NOT NULL DEFAULT 0,
+    expires_at DATETIME NOT NULL,
+    consumed_at DATETIME NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_otp_lookup (email, purpose, consumed_at),
+    INDEX idx_otp_expires (expires_at),
+    CONSTRAINT fk_otp_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+  ) ENGINE=InnoDB;`,
+
+  `CREATE TABLE IF NOT EXISTS audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    action VARCHAR(120) NOT NULL,
+    target VARCHAR(255) NULL,
+    ip VARCHAR(64) NULL,
+    user_agent VARCHAR(255) NULL,
+    metadata JSON NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_audit_user (user_id),
+    INDEX idx_audit_action (action)
   ) ENGINE=InnoDB;`,
 
   `CREATE TABLE IF NOT EXISTS clients (
@@ -83,7 +114,7 @@ const statements = [
   try {
     for (const sql of statements) {
       await db.query(sql);
-      console.log("[migrate] ✔", sql.split("\n")[0]);
+      console.log("[migrate] ✔", sql.split("\n")[0].slice(0, 80));
     }
     console.log("[migrate] complete");
     process.exit(0);

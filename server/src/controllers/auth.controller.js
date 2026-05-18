@@ -49,6 +49,8 @@ async function login(req, res, next) {
     const ok = await bcrypt.compare(password, user.password_hash);
     if (!ok) return res.status(401).json({ error: "Invalid credentials" });
 
+    // NOTE: For OTP-protected sign-in, prefer POST /api/auth/login-init + /api/auth/verify-otp.
+    // This endpoint is retained for service tokens / non-2FA clients.
     const token = signToken({ id: user.id, email: user.email, role: user.role });
     res.json({
       user: { id: user.id, name: user.name, email: user.email, role: user.role },

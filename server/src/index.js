@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 
 const config = require("./config");
@@ -13,6 +14,7 @@ const app = express();
 
 app.set("trust proxy", 1);
 app.use(helmet());
+app.use(compression());
 app.use(
   cors({
     origin: (origin, cb) => {
