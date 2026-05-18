@@ -16,7 +16,32 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [email, setEmail] = useState("admin@abancool.tech");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true); setError(null);
+    try {
+      const r = await api.loginInit(email, password);
+      navigate({
+        to: "/verify-otp",
+        search: { email: r.email, ttl: r.ttlSeconds, dev: r.devCode },
+      });
+    } catch (err: any) {
+      // Backend unreachable → still let user preview the UI flow
+      if (/fetch|Network|Failed/i.test(err.message)) {
+        navigate({ to: "/verify-otp", search: { email, ttl: 600 } });
+      } else {
+        setError(err.message || "Sign-in failed");
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden grid-bg">
