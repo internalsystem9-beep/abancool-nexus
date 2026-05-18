@@ -12,7 +12,7 @@ const search = z.object({
 });
 
 export const Route = createFileRoute("/verify-otp")({
-  validateSearch: (s) => search.parse(s),
+  validateSearch: (s: Record<string, unknown>) => search.parse(s),
   head: () => ({
     meta: [{ title: "Verify Code — ABANCOOL Command Center" }],
   }),
@@ -138,7 +138,7 @@ function VerifyOtpPage() {
               {digits.map((d, i) => (
                 <input
                   key={i}
-                  ref={(el) => (refs.current[i] = el)}
+                  ref={(el) => { refs.current[i] = el; }}
                   inputMode="numeric"
                   maxLength={1}
                   value={d}
