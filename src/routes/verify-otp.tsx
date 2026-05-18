@@ -32,12 +32,12 @@ function VerifyOtpPage() {
   const refs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    const t = setInterval(() => setRemaining((s) => Math.max(0, s - 1)), 1000);
+    const t = setInterval(() => setRemaining((s: number) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(t);
   }, []);
   useEffect(() => {
     if (cooldown <= 0) return;
-    const t = setInterval(() => setCooldown((s) => s - 1), 1000);
+    const t = setInterval(() => setCooldown((s: number) => s - 1), 1000);
     return () => clearInterval(t);
   }, [cooldown]);
 
