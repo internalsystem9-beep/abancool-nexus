@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Zap, Mail, Lock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Zap, Mail, Lock, ArrowRight, ShieldCheck, Loader2 } from "lucide-react";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -15,7 +16,32 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [email, setEmail] = useState("admin@abancool.tech");
+  const [password, setPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true); setError(null);
+    try {
+      const r = await api.loginInit(email, password);
+      navigate({
+        to: "/verify-otp",
+        search: { email: r.email, ttl: r.ttlSeconds, dev: r.devCode },
+      });
+    } catch (err: any) {
+      // Backend unreachable → still let user preview the UI flow
+      if (/fetch|Network|Failed/i.test(err.message)) {
+        navigate({ to: "/verify-otp", search: { email, ttl: 600 } });
+      } else {
+        setError(err.message || "Sign-in failed");
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden grid-bg">
@@ -84,18 +110,26 @@ function LoginPage() {
                   : "Provision your enterprise workspace"}
               </p>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  navigate({ to: "/dashboard" });
-                }}
-                className="mt-6 space-y-4"
-              >
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                 {mode === "signup" && (
                   <Field icon={<ShieldCheck className="size-4" />} type="text" placeholder="Full name" />
                 )}
-                <Field icon={<Mail className="size-4" />} type="email" placeholder="you@abancool.tech" defaultValue="admin@abancool.tech" />
-                <Field icon={<Lock className="size-4" />} type="password" placeholder="••••••••••" defaultValue="password" />
+                <Field
+                  icon={<Mail className="size-4" />}
+                  type="email"
+                  placeholder="you@abancool.tech"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Field
+                  icon={<Lock className="size-4" />}
+                  type="password"
+                  placeholder="••••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                {error && <p className="text-sm text-destructive">{error}</p>}
 
                 {mode === "signin" && (
                   <div className="flex items-center justify-between text-xs">
@@ -108,10 +142,11 @@ function LoginPage() {
 
                 <button
                   type="submit"
-                  className="group w-full h-12 rounded-md bg-gradient-to-r from-primary to-primary-glow text-primary-foreground font-semibold tracking-wide shadow-[0_0_30px_-6px_oklch(0.72_0.18_235/0.7)] hover:shadow-[0_0_40px_-4px_oklch(0.72_0.18_235/0.9)] transition-all flex items-center justify-center gap-2"
+                  disabled={busy}
+                  className="group w-full h-12 rounded-md bg-gradient-to-r from-primary to-primary-glow text-primary-foreground font-semibold tracking-wide shadow-[0_0_30px_-6px_oklch(0.72_0.18_235/0.7)] hover:shadow-[0_0_40px_-4px_oklch(0.72_0.18_235/0.9)] disabled:opacity-60 transition-all flex items-center justify-center gap-2"
                 >
-                  {mode === "signin" ? "Sign In" : "Create Account"}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  {busy ? <Loader2 className="size-4 animate-spin" /> : (mode === "signin" ? "Continue" : "Create Account")}
+                  {!busy && <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />}
                 </button>
               </form>
 
