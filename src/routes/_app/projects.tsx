@@ -25,7 +25,8 @@ const columns = [
   { id: "deploy", title: "Deployment", color: "oklch(0.72 0.18 155)" },
 ];
 
-const cards = {
+type Card = { title: string; client: string; tag: string; priority: "low" | "med" | "high"; progress: number };
+const cards: Record<string, Card[]> = {
   lead: [
     { title: "Coast Realty Portal", client: "Coast Realty", tag: "Web", priority: "low", progress: 5 },
   ],
@@ -46,7 +47,7 @@ const cards = {
   deploy: [
     { title: "WHMCS Integration", client: "Internal", tag: "Integration", priority: "med", progress: 95 },
   ],
-} as const;
+};
 
 function ProjectsPage() {
   return (
@@ -77,7 +78,7 @@ function ProjectsPage() {
       <div className="overflow-x-auto">
         <div className="grid grid-flow-col auto-cols-[280px] gap-4 pb-2">
           {columns.map((col) => {
-            const items = (cards as Record<string, typeof cards.lead>)[col.id] ?? [];
+            const items = cards[col.id] ?? [];
             return (
               <div key={col.id} className="glass rounded-2xl p-3">
                 <div className="flex items-center justify-between mb-3 px-1">
