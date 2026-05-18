@@ -12,7 +12,23 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppWhatsappRouteImport } from './routes/_app/whatsapp'
+import { Route as AppVpsRouteImport } from './routes/_app/vps'
+import { Route as AppVaultRouteImport } from './routes/_app/vault'
+import { Route as AppSupportRouteImport } from './routes/_app/support'
+import { Route as AppStaffRouteImport } from './routes/_app/staff'
+import { Route as AppSmsRouteImport } from './routes/_app/sms'
+import { Route as AppSettingsRouteImport } from './routes/_app/settings'
+import { Route as AppProjectsRouteImport } from './routes/_app/projects'
+import { Route as AppIntegrationsRouteImport } from './routes/_app/integrations'
+import { Route as AppHostingRouteImport } from './routes/_app/hosting'
+import { Route as AppFilesRouteImport } from './routes/_app/files'
+import { Route as AppDomainsRouteImport } from './routes/_app/domains'
+import { Route as AppDevopsRouteImport } from './routes/_app/devops'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppClientsRouteImport } from './routes/_app/clients'
+import { Route as AppBillingRouteImport } from './routes/_app/billing'
+import { Route as AppAutomationRouteImport } from './routes/_app/automation'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -28,35 +44,222 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppWhatsappRoute = AppWhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVpsRoute = AppVpsRouteImport.update({
+  id: '/vps',
+  path: '/vps',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVaultRoute = AppVaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSupportRoute = AppSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStaffRoute = AppStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSmsRoute = AppSmsRouteImport.update({
+  id: '/sms',
+  path: '/sms',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProjectsRoute = AppProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIntegrationsRoute = AppIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHostingRoute = AppHostingRouteImport.update({
+  id: '/hosting',
+  path: '/hosting',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFilesRoute = AppFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDomainsRoute = AppDomainsRouteImport.update({
+  id: '/domains',
+  path: '/domains',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDevopsRoute = AppDevopsRouteImport.update({
+  id: '/devops',
+  path: '/devops',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClientsRoute = AppClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBillingRoute = AppBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAutomationRoute = AppAutomationRouteImport.update({
+  id: '/automation',
+  path: '/automation',
   getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/automation': typeof AppAutomationRoute
+  '/billing': typeof AppBillingRoute
+  '/clients': typeof AppClientsRoute
   '/dashboard': typeof AppDashboardRoute
+  '/devops': typeof AppDevopsRoute
+  '/domains': typeof AppDomainsRoute
+  '/files': typeof AppFilesRoute
+  '/hosting': typeof AppHostingRoute
+  '/integrations': typeof AppIntegrationsRoute
+  '/projects': typeof AppProjectsRoute
+  '/settings': typeof AppSettingsRoute
+  '/sms': typeof AppSmsRoute
+  '/staff': typeof AppStaffRoute
+  '/support': typeof AppSupportRoute
+  '/vault': typeof AppVaultRoute
+  '/vps': typeof AppVpsRoute
+  '/whatsapp': typeof AppWhatsappRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/automation': typeof AppAutomationRoute
+  '/billing': typeof AppBillingRoute
+  '/clients': typeof AppClientsRoute
   '/dashboard': typeof AppDashboardRoute
+  '/devops': typeof AppDevopsRoute
+  '/domains': typeof AppDomainsRoute
+  '/files': typeof AppFilesRoute
+  '/hosting': typeof AppHostingRoute
+  '/integrations': typeof AppIntegrationsRoute
+  '/projects': typeof AppProjectsRoute
+  '/settings': typeof AppSettingsRoute
+  '/sms': typeof AppSmsRoute
+  '/staff': typeof AppStaffRoute
+  '/support': typeof AppSupportRoute
+  '/vault': typeof AppVaultRoute
+  '/vps': typeof AppVpsRoute
+  '/whatsapp': typeof AppWhatsappRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/_app/automation': typeof AppAutomationRoute
+  '/_app/billing': typeof AppBillingRoute
+  '/_app/clients': typeof AppClientsRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/devops': typeof AppDevopsRoute
+  '/_app/domains': typeof AppDomainsRoute
+  '/_app/files': typeof AppFilesRoute
+  '/_app/hosting': typeof AppHostingRoute
+  '/_app/integrations': typeof AppIntegrationsRoute
+  '/_app/projects': typeof AppProjectsRoute
+  '/_app/settings': typeof AppSettingsRoute
+  '/_app/sms': typeof AppSmsRoute
+  '/_app/staff': typeof AppStaffRoute
+  '/_app/support': typeof AppSupportRoute
+  '/_app/vault': typeof AppVaultRoute
+  '/_app/vps': typeof AppVpsRoute
+  '/_app/whatsapp': typeof AppWhatsappRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/automation'
+    | '/billing'
+    | '/clients'
+    | '/dashboard'
+    | '/devops'
+    | '/domains'
+    | '/files'
+    | '/hosting'
+    | '/integrations'
+    | '/projects'
+    | '/settings'
+    | '/sms'
+    | '/staff'
+    | '/support'
+    | '/vault'
+    | '/vps'
+    | '/whatsapp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard'
-  id: '__root__' | '/' | '/_app' | '/login' | '/_app/dashboard'
+  to:
+    | '/'
+    | '/login'
+    | '/automation'
+    | '/billing'
+    | '/clients'
+    | '/dashboard'
+    | '/devops'
+    | '/domains'
+    | '/files'
+    | '/hosting'
+    | '/integrations'
+    | '/projects'
+    | '/settings'
+    | '/sms'
+    | '/staff'
+    | '/support'
+    | '/vault'
+    | '/vps'
+    | '/whatsapp'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/login'
+    | '/_app/automation'
+    | '/_app/billing'
+    | '/_app/clients'
+    | '/_app/dashboard'
+    | '/_app/devops'
+    | '/_app/domains'
+    | '/_app/files'
+    | '/_app/hosting'
+    | '/_app/integrations'
+    | '/_app/projects'
+    | '/_app/settings'
+    | '/_app/sms'
+    | '/_app/staff'
+    | '/_app/support'
+    | '/_app/vault'
+    | '/_app/vps'
+    | '/_app/whatsapp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +291,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/whatsapp': {
+      id: '/_app/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof AppWhatsappRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/vps': {
+      id: '/_app/vps'
+      path: '/vps'
+      fullPath: '/vps'
+      preLoaderRoute: typeof AppVpsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/vault': {
+      id: '/_app/vault'
+      path: '/vault'
+      fullPath: '/vault'
+      preLoaderRoute: typeof AppVaultRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/support': {
+      id: '/_app/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof AppSupportRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/staff': {
+      id: '/_app/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof AppStaffRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/sms': {
+      id: '/_app/sms'
+      path: '/sms'
+      fullPath: '/sms'
+      preLoaderRoute: typeof AppSmsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/projects': {
+      id: '/_app/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AppProjectsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/integrations': {
+      id: '/_app/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof AppIntegrationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hosting': {
+      id: '/_app/hosting'
+      path: '/hosting'
+      fullPath: '/hosting'
+      preLoaderRoute: typeof AppHostingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/files': {
+      id: '/_app/files'
+      path: '/files'
+      fullPath: '/files'
+      preLoaderRoute: typeof AppFilesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/domains': {
+      id: '/_app/domains'
+      path: '/domains'
+      fullPath: '/domains'
+      preLoaderRoute: typeof AppDomainsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/devops': {
+      id: '/_app/devops'
+      path: '/devops'
+      fullPath: '/devops'
+      preLoaderRoute: typeof AppDevopsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -95,15 +389,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/clients': {
+      id: '/_app/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof AppClientsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/billing': {
+      id: '/_app/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof AppBillingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/automation': {
+      id: '/_app/automation'
+      path: '/automation'
+      fullPath: '/automation'
+      preLoaderRoute: typeof AppAutomationRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAutomationRoute: typeof AppAutomationRoute
+  AppBillingRoute: typeof AppBillingRoute
+  AppClientsRoute: typeof AppClientsRoute
   AppDashboardRoute: typeof AppDashboardRoute
+  AppDevopsRoute: typeof AppDevopsRoute
+  AppDomainsRoute: typeof AppDomainsRoute
+  AppFilesRoute: typeof AppFilesRoute
+  AppHostingRoute: typeof AppHostingRoute
+  AppIntegrationsRoute: typeof AppIntegrationsRoute
+  AppProjectsRoute: typeof AppProjectsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSmsRoute: typeof AppSmsRoute
+  AppStaffRoute: typeof AppStaffRoute
+  AppSupportRoute: typeof AppSupportRoute
+  AppVaultRoute: typeof AppVaultRoute
+  AppVpsRoute: typeof AppVpsRoute
+  AppWhatsappRoute: typeof AppWhatsappRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAutomationRoute: AppAutomationRoute,
+  AppBillingRoute: AppBillingRoute,
+  AppClientsRoute: AppClientsRoute,
   AppDashboardRoute: AppDashboardRoute,
+  AppDevopsRoute: AppDevopsRoute,
+  AppDomainsRoute: AppDomainsRoute,
+  AppFilesRoute: AppFilesRoute,
+  AppHostingRoute: AppHostingRoute,
+  AppIntegrationsRoute: AppIntegrationsRoute,
+  AppProjectsRoute: AppProjectsRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSmsRoute: AppSmsRoute,
+  AppStaffRoute: AppStaffRoute,
+  AppSupportRoute: AppSupportRoute,
+  AppVaultRoute: AppVaultRoute,
+  AppVpsRoute: AppVpsRoute,
+  AppWhatsappRoute: AppWhatsappRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -116,3 +463,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
