@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Zap, Mail, Lock, ArrowRight, ShieldCheck } from "lucide-react";
+import { Zap, Mail, Lock, ArrowRight, ShieldCheck, Loader2 } from "lucide-react";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
