@@ -113,11 +113,45 @@
   }
 }
 
+/* Public marketing site — light fintech SaaS theme */
+.theme-light {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.15 0.01 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.01 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.01 250);
+  --primary: oklch(0.58 0.21 255);
+  --primary-foreground: oklch(1 0 0);
+  --primary-glow: oklch(0.68 0.20 250);
+  --secondary: oklch(0.97 0.01 250);
+  --secondary-foreground: oklch(0.20 0.02 250);
+  --muted: oklch(0.97 0.005 250);
+  --muted-foreground: oklch(0.50 0.02 250);
+  --accent: oklch(0.95 0.03 250);
+  --accent-foreground: oklch(0.20 0.04 255);
+  --border: oklch(0.20 0.02 250 / 0.10);
+  --input: oklch(0.20 0.02 250 / 0.08);
+  --ring: oklch(0.58 0.21 255);
+  --gradient-primary: linear-gradient(135deg, oklch(0.58 0.21 255), oklch(0.68 0.20 250));
+  --gradient-glow: radial-gradient(circle at 30% 20%, oklch(0.58 0.21 255 / 0.18), transparent 60%);
+  color-scheme: light;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
 @layer utilities {
   .glass {
     background: oklch(0.165 0 0);
     border: 1px solid oklch(1 0 0 / 0.09);
     box-shadow: 0 1px 0 oklch(1 0 0 / 0.04) inset, 0 12px 32px -16px oklch(0 0 0 / 0.6);
+  }
+
+  .theme-light .glass {
+    background: oklch(1 0 0 / 0.7);
+    border: 1px solid oklch(0.20 0.02 250 / 0.08);
+    box-shadow: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 12px 32px -16px oklch(0.20 0.02 250 / 0.15);
+    backdrop-filter: blur(12px);
   }
 
   .glow-blue {
@@ -133,6 +167,19 @@
       linear-gradient(oklch(1 0 0 / 0.025) 1px, transparent 1px),
       linear-gradient(90deg, oklch(1 0 0 / 0.025) 1px, transparent 1px);
     background-size: 48px 48px;
+  }
+
+  .theme-light .grid-bg {
+    background-image:
+      linear-gradient(oklch(0.20 0.02 250 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.20 0.02 250 / 0.04) 1px, transparent 1px);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .scanline::before {
