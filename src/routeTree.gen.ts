@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AppRouteImport } from './routes/_app'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppWhatsappRouteImport } from './routes/_app/whatsapp'
 import { Route as AppVpsRouteImport } from './routes/_app/vps'
 import { Route as AppVaultRouteImport } from './routes/_app/vault'
@@ -41,13 +41,12 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppWhatsappRoute = AppWhatsappRouteImport.update({
@@ -137,7 +136,7 @@ const AppAutomationRoute = AppAutomationRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PublicRoute
   '/login': typeof LoginRoute
   '/verify-otp': typeof VerifyOtpRoute
   '/automation': typeof AppAutomationRoute
@@ -159,7 +158,7 @@ export interface FileRoutesByFullPath {
   '/whatsapp': typeof AppWhatsappRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof PublicRoute
   '/login': typeof LoginRoute
   '/verify-otp': typeof VerifyOtpRoute
   '/automation': typeof AppAutomationRoute
@@ -182,8 +181,8 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
+  '/_public': typeof PublicRoute
   '/login': typeof LoginRoute
   '/verify-otp': typeof VerifyOtpRoute
   '/_app/automation': typeof AppAutomationRoute
@@ -251,8 +250,8 @@ export interface FileRouteTypes {
     | '/whatsapp'
   id:
     | '__root__'
-    | '/'
     | '/_app'
+    | '/_public'
     | '/login'
     | '/verify-otp'
     | '/_app/automation'
@@ -275,8 +274,8 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  PublicRoute: typeof PublicRoute
   LoginRoute: typeof LoginRoute
   VerifyOtpRoute: typeof VerifyOtpRoute
 }
@@ -297,18 +296,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/whatsapp': {
@@ -476,8 +475,8 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  PublicRoute: PublicRoute,
   LoginRoute: LoginRoute,
   VerifyOtpRoute: VerifyOtpRoute,
 }
